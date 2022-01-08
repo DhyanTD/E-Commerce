@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <div class="container" style="width:30%; " style="padding:70%;">
+    <div class="container" style="width:40%; " style="padding:70%;">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,6 +50,8 @@ img.avatar {
 
 .container {
   padding: 16px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 span.psw {
@@ -73,7 +75,7 @@ span.psw {
 
 <h2>Sign Up</h2>
 
-<form action="/action_page.php" method="post">
+<form action="/signup" method="post">
   <div class="imgcontainer">
     <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
   </div>
@@ -93,19 +95,19 @@ span.psw {
     <input type="number" placeholder="Name" name="phno" required>
     <h1></h1>
     <label for="uname"><b>Gender:</b></label>
-    <input type="radio" name="gender" id="male" value="male"  >Male
-    <input type="radio" name="gender" id="female" value="female"  >Female
-    <input type="radio" name="gender" id="other" value="other"  >Other
+    <input type="radio" name="gender" id="male" value="male"  name="gender">Male
+    <input type="radio" name="gender" id="female" value="female"  name="gender">Female
+    <input type="radio" name="gender" id="other" value="other"  name="gender">Other
     <h1></h1>
     <label for="uname"><b>Address</b></label>
-    <input type="text" placeholder="Address" name="uname" required>
+    <input type="text" placeholder="Address" name="address" required>
 
     <label for="uname"><b>User Name</b></label>
     <input type="text" placeholder="username" name="username" required>
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
-        
+     
     <button type="submit">Sign Up</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
