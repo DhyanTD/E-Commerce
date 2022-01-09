@@ -4,14 +4,16 @@
 <head>
     <style>
         .row {
-            display: -ms-flexbox;
+            /* display: -ms-flexbox; */
             /* IE10 */
-            display: flex;
-            -ms-flex-wrap: wrap;
+            /* display: flex; */
+            /* -ms-flex-wrap: wrap; */
             /* IE10 */
-            flex-wrap: wrap;
+            /* flex-wrap: wrap; */
             margin-left: auto;
             margin-right: auto;
+            margin-top: 60px;
+            border: black;
         }
 
         .col-25 {
@@ -40,8 +42,8 @@
 
         .container {
             background-color: #f2f2f2;
-            padding: 5px 20px 15px 20px;
-            border: 1px solid lightgrey;
+            padding: 1px 20px 1px 20px;
+            border: 2px solid rgb(0, 0, 0);
             border-radius: 3px;
         }
 
@@ -107,28 +109,19 @@
                     <div class="row">
                         <div class="col-50">
                             <h3>Billing Address</h3>
-                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                            <input type="text" id="email" name="email" placeholder="john@example.com">
-                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> District</label>
+                            <input type="text" id="adr" name="district" placeholder="district">
                             <label for="city"><i class="fa fa-institution"></i> City</label>
-                            <input type="text" id="city" name="city" placeholder="New York">
+                            <input type="text" id="city" name="city" placeholder="city">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" placeholder="state">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" name="zip" placeholder="pincode">
 
-                            <div class="row">
-                                <div class="col-50">
-                                    <label for="state">State</label>
-                                    <input type="text" id="state" name="state" placeholder="NY">
-                                </div>
-                                <div class="col-50">
-                                    <label for="zip">Zip</label>
-                                    <input type="text" id="zip" name="zip" placeholder="10001">
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="col-50">
+
+                        <!-- <div class="col-50">
                             <h3>Payment</h3>
                             <label for="fname">Accepted Cards</label>
                             <div class="icon-container">
@@ -154,9 +147,10 @@
                                     <input type="text" id="cvv" name="cvv" placeholder="352">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
+                    <hr size="2" color=""><br>
                     <label>
                         <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                     </label>
@@ -165,22 +159,21 @@
             </div>
         </div>
 
-        <div class="col-25">
+        <!-- <div class="col-25">
             <div class="container">
-                <h4>Cart
-                    <span class="price" style="color:black">
-                        <i class="fa fa-shopping-cart"></i>
-                        <b>4</b>
-                    </span>
-                </h4>
-                <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                <p><a href="#">Product 4</a> <span class="price">$2</span></p>
-                <hr>
-                <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+                <table>
+                    <tr>
+                      <th>Company</th>
+                    </tr>
+                    {% for items in plist %}
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>{{items.pname}}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
             </div>
-        </div>
+        </div> -->
     </div>
 </body>
 
