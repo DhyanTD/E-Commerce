@@ -106,7 +106,7 @@ span.psw {
     <input type="text" placeholder="username" name="username" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" oninvalid="alert('Password Must contain 8 to 12 characters');" pattern=".{8,12}" placeholder="Enter Password" name="psw" required>
      
     <button type="submit">Sign Up</button>
     <label>
