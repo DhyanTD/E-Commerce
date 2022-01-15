@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<div>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+</div>
+<div>
+    <style>
+        .styled-table {
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            border-style: solid;
+            border-color: #000000;
+            margin: auto;
+            width: 60%;
+        }
+
+        .styled-table thead tr {
+            background-color: #00000094;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+            text-align: center;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .container {
+            margin: auto;
+            background-color:#ffffff;
+            padding-left: 700px;
+            margin-top: 2%;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #161616;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #000000;
+        }
+    </style>
+
+    <body>
+        <h2 style="text-align: center;">Your Products</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">image</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for prdcts in products %}
+                {% set pimg = prdcts.P_IMG %}
+                <tr class="active-row">
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ prdcts.P_NAME }}</td>
+                    <td>{{ prdcts.P_DESC }}</td>
+                    <td>{{ prdcts.COUNT }}</td>
+                    <td>{{ prdcts.COST }}</td>
+                    <!-- <td><img width="130" height="110" src="data:;base64,{{ prdcts.P_IMG }}"/></td> -->
+                    <td><img width="130" height="110" src="{{ url_for('static', filename='assets/images/'+pimg) }}"/></td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Count</th>
+                <th scope="col">Description</th>
+                <th scope="col">Cost</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for prdcts in prdcts %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ prdcts.P_NAME }}</td>
+                    <td>{{ prdcts.P_DESC }}</td>
+                    <td>{{ prdcts.P_COST }}</td>
+                    <td>{{ prdcts.P_COUNT }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
+        <div class="container"><a href="/seller_index">
+                <button type="button" class="cancelbtn">Cancel</button></div></a>
+    </body>
+</div>
+
+</html>
