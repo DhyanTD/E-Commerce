@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 {% block body %}
 <!-- slide animae -->
@@ -154,13 +155,15 @@ margin-left: auto;
             <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
           </div>
         </div>
+        {% for prdcts in products %}
+        {% set pimg = prdcts.P_IMG %}
         <div class="col-md-4">
           <div class="product-item">
-            <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
+            <a href="#"><img src="{{ url_for('static', filename='assets/images/'+pimg) }}" alt=""></a>
             <div class="down-content">
-              <a href="#"><h4>Tittle goes here</h4></a>
-              <h6>$25.75</h6>
-              <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
+              <a href="#"><h4>{{ prdcts.P_NAME }}</h4></a>
+              <h6>{{ prdcts.COST }}</h6>
+              <p>{{ prdcts.P_DESC }}</p>
               <ul class="stars">
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
@@ -172,4 +175,15 @@ margin-left: auto;
             </div>
           </div>
         </div>
-        {% endblock %}      
+        {% endfor %}
+              
+
+<footer>
+    <div class="container" style="background-color:#ffffff; padding-left: 50%;">
+        <a href="/seller_index">
+            <button type="button" class="cancelbtn" style="color: rgb(255, 255, 255);"
+                style="border: #000000;">Be A Seller</button></a>
+    </div>
+</footer>
+
+{% endblock %}
