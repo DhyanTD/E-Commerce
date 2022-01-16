@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<div>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-</div>
-<div>
+{% extends "s_layout.html" %}
+{% block body %}
     <style>
         .styled-table {
             margin: 25px 0;
@@ -64,7 +55,13 @@
         }
     </style>
 
-    <body>
+    <br>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
         <h2 style="text-align: center;">Your Products</h2>
         <table class="styled-table">
             <thead>
@@ -88,31 +85,11 @@
                 {% endfor %}
             </tbody>
         </table>
-        <!-- <table>
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Count</th>
-                <th scope="col">Description</th>
-                <th scope="col">Cost</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for prdcts in prdcts %}
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    <td>{{ prdcts.P_NAME }}</td>
-                    <td>{{ prdcts.P_DESC }}</td>
-                    <td>{{ prdcts.P_COST }}</td>
-                    <td>{{ prdcts.P_COUNT }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
+       
         <div class="container"><a href="/seller_index">
-                <button type="button" class="cancelbtn">Cancel</button></div></a>
-    </body>
+                <button type="button" class="cancelbtn">Back</button></div></a>
+    
 </div>
 
-</html>
+
+{% endblock %}
