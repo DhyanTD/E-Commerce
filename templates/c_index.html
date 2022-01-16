@@ -159,7 +159,7 @@ margin-left: auto;
         {% set pimg = prdcts.P_IMG %}
         <div class="col-md-4">
           <div class="product-item">
-            <a href="#"><img src="{{ url_for('static', filename='assets/images/'+pimg) }}" alt=""></a>
+            <a href="#"><img width="130" height="110" src="/static/assets/images/{{ prdcts.P_IMG }}"/></a>
             <div class="down-content">
               <a href="#"><h4>{{ prdcts.P_NAME }}</h4></a>
               <h6>{{ prdcts.COST }}</h6>
@@ -176,14 +176,11 @@ margin-left: auto;
           </div>
         </div>
         {% endfor %}
-              
 
-<footer>
-    <div class="container" style="background-color:#ffffff; padding-left: 50%;">
-        <a href="/seller_index">
-            <button type="button" class="cancelbtn" style="color: rgb(255, 255, 255);"
-                style="border: #000000;">Be A Seller</button></a>
-    </div>
-</footer>
+        <div class="container" style="background-color:#ffffff; padding-left: 50%;">
+          <a href="/seller_index">
+              <button type="button" class="cancelbtn" style="color: rgb(255, 255, 255);"
+                  style="border: #000000;">Be A Seller</button></a>
+      </div>
 
 {% endblock %}
