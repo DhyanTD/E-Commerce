@@ -128,7 +128,7 @@ class Orders(db.Model):
 @app.route("/")
 def home():
     if(request.method == "GET"):
-        prdts = db.session.query(Products).all()
+        prdts = db.session.query(Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
         return render_template('c_index.html',products=prdts)
     return render_template('c_index.html')
 
@@ -242,17 +242,14 @@ def s_addprdts():
             desc = request.form.get("desc")
             count = request.form.get("count")
             cost = request.form.get("cost")
+            img = request.form.get("psw")
             f = request.files["psw"]
             f.save('C:\\Users\jeev\Downloads\E-Commerce-main (1)\E-Commerce-main\static\\assets\images\\'+f.filename)
             c_id = db.session.query(Category.C_ID).filter_by(
                 C_NAME=category).first()
             s_id = db.session.query(Seller.S_ID).filter_by(
                 USERNAME=params['crnt_s_usr']).first()
-            # f = request.files["psw"]
-            # f.save('static/assets/images/'+'psw')
-            # f = str.encode(f)
-            # print(img)
-            img = str.encode('psw')
+            img = str.encode(f.filename)
             entry = Products(P_NAME=p_name, COST=cost, COUNT=count,
                              S_ID=s_id[0], C_ID=c_id[0], P_IMG=img, P_DESC=desc)
             db.session.add(entry)
