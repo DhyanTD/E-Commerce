@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2022 at 07:18 AM
+-- Generation Time: Jan 16, 2022 at 11:07 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -137,7 +137,7 @@ CREATE TABLE `products` (
   `COUNT` int(11) NOT NULL,
   `S_ID` int(11) NOT NULL,
   `C_ID` int(11) NOT NULL,
-  `P_IMG` longblob NOT NULL,
+  `P_IMG` varchar(100) NOT NULL,
   `P_DESC` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -146,12 +146,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`P_ID`, `P_NAME`, `COST`, `COUNT`, `S_ID`, `C_ID`, `P_IMG`, `P_DESC`) VALUES
-(4, 'REDMI', 200000, 10, 101, 1, 0x53637265656e73686f7420283230292e706e67, 'Note 9 Pro Max'),
-(7, 'Asus Laptop', 500000000, 40, 101, 4, 0x53637265656e73686f7420283230292e706e67, 'TUF A15'),
-(8, 'Bata', 1000, 20, 101, 7, 0x53637265656e73686f7420283230292e706e67, 'shoe'),
-(9, 'mi', 5925225, 5, 101, 1, 0x53637265656e73686f7420283230292e706e67, 'iuhipu9'),
-(15, 'mi', 27852542, 3, 101, 1, 0x3c46696c6553746f726167653a2027323032302d31302d323020283437292e706e6727202827696d6167652f706e6727293e, 'abcd'),
-(16, 'samsung', 45244, 5, 101, 1, 0x707377, 'jdhjfd');
+(18, 'Asus Laptop', 454544534, 5, 101, 1, 'psw', 'adsfsfdgsfgsfdg'),
+(19, 'REDMI', 4254524, 52, 101, 1, '2020-10-20 (12).png', 'iuhipu9'),
+(20, 'REDMI', 4534534534, 5, 101, 1, '2020-10-20 (22).png', 'Note 9 Pro Max'),
+(22, 'REDMI', 6486453678, 65, 101, 1, '2020-10-20 (21).png', 'Note 9 Pro Max');
 
 -- --------------------------------------------------------
 
@@ -316,7 +314,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `P_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `P_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product_delivery`
