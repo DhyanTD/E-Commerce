@@ -1,5 +1,5 @@
 import re
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
 import json
@@ -13,6 +13,7 @@ with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = params["local_uri"]
+app.secret_key = 'super secret key'
 db = SQLAlchemy(app)
 
 # Table Customer
@@ -127,10 +128,8 @@ class Orders(db.Model):
 
 @app.route("/")
 def home():
-    if(request.method == "GET"):
-        prdts = db.session.query(Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
-        return render_template('c_index.html',products=prdts)
-    return render_template('c_index.html')
+    prdts = db.session.query(Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
+    return render_template('c_index.html',products=prdts)
 
 # customer login page
 
@@ -144,6 +143,7 @@ def login():
             USERNAME=uname, PASSWORD=psw).first() is not None
         if(exists):
             params["crnt_usr"] = uname
+            session['cust_login'] = True
             return redirect('/')
         else:
             return redirect('/signup')
@@ -191,6 +191,7 @@ def s_login():
             USERNAME=uname, PASSWORD=psw).first() is not None
         if(exists):
             params["crnt_s_usr"] = uname
+            session['sell_login'] = True
             return redirect('/seller_index')
         else:
             return redirect('/s_signup')
@@ -215,9 +216,9 @@ def s_signup():
                            E_MAIL=email, GENDER=gender, USERNAME=uname, PASSWORD=psw)
             db.session.add(entry)
             db.session.commit()
-            return redirect("/")
+            return redirect("/seller_index")
         except:
-            redirect("/seller_index")
+            redirect("/s_signup")
     return render_template('s_signup.html')
 
 # payment page
@@ -288,5 +289,10 @@ def not_found():
 @app.route("/s_logged_out")
 def loggedout():
     return render_template("s_logged_out.html")
+
+@app.route('/logout')
+def logout():
+    session['cust_login'] = False
+    return render_template('login.html')
 
 app.run(debug=True)
