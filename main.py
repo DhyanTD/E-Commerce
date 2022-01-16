@@ -7,6 +7,7 @@ import os
 from sqlalchemy import exists
 from sqlalchemy.sql.schema import ForeignKey
 from werkzeug.utils import redirect
+import base64
 
 with open('config.json', 'r') as c:
     params = json.load(c)["params"]
@@ -70,8 +71,10 @@ class Products(db.Model):
     P_IMG = db.Column(db.Text, nullable=False)
     P_DESC = db.Column(db.String, nullable=False)
 
-    def __repr__(self) -> str:
-        return f"{self.P_NAME} - {self.COUNT} - {self.COST} - {self.P_DESC}"
+    # def __repr__(self) -> str:
+    #     return f"{self.P_NAME} - {self.COUNT} - {self.COST} - {self.P_DESC} - {self.P_IMG}"
+    def __repr__(self):
+        return '<Products %r>' % (self.P_NAME)
 
 # Table Transaction
 
@@ -124,7 +127,10 @@ class Orders(db.Model):
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    if(request.method == "GET"):
+        prdts = db.session.query(Products).all()
+        return render_template('c_index.html',products=prdts)
+    return render_template('c_index.html')
 
 # customer login page
 
@@ -236,13 +242,17 @@ def s_addprdts():
             desc = request.form.get("desc")
             count = request.form.get("count")
             cost = request.form.get("cost")
-            img = request.form.get("psw")
+            f = request.files["psw"]
+            f.save('C:\\Users\jeev\Downloads\E-Commerce-main (1)\E-Commerce-main\static\\assets\images\\'+f.filename)
             c_id = db.session.query(Category.C_ID).filter_by(
                 C_NAME=category).first()
             s_id = db.session.query(Seller.S_ID).filter_by(
                 USERNAME=params['crnt_s_usr']).first()
-            img = str.encode(img)
-            print(img)
+            # f = request.files["psw"]
+            # f.save('static/assets/images/'+'psw')
+            # f = str.encode(f)
+            # print(img)
+            img = str.encode('psw')
             entry = Products(P_NAME=p_name, COST=cost, COUNT=count,
                              S_ID=s_id[0], C_ID=c_id[0], P_IMG=img, P_DESC=desc)
             db.session.add(entry)
@@ -250,7 +260,7 @@ def s_addprdts():
             return redirect("/seller_index")
         except:
             return redirect("/s_addprdts")
-    return render_template("s_logged_out.html")
+    return render_template("s_addprdts.html")
 
 @app.route("/your_products", methods=["GET" , "POST"])
 def your_products():
@@ -265,6 +275,14 @@ def your_products():
             return render_template("your_products.html", prdcts=prdcts)
         except:
             return redirect("/s_logged_out")
+
+@app.route('/displayprdts')
+def display():
+    if(request.method == "GET"):
+        prdts = db.session.query(Products).all()
+        return render_template('displayprdts.html',products=prdts)
+    return render_template('displayprdts.html')
+
 
 @app.route("/404")
 def not_found():
