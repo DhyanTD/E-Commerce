@@ -41,6 +41,18 @@
     margin-left: auto;
     background-color: #f5f5f5;
   }
+  footer {
+    position :static8;
+    width: 98%;
+    bottom : 0;
+    height : 10px;
+    margin-top : 10px;
+    width: 100%;
+    padding: 25px;                       
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #f5f5f5;
+  }
 </style>
     <!-- Header -->
     <header class="">
@@ -78,23 +90,10 @@
       </nav>
     </header>
 
-    {% block body %} {% endblock %}
+   
 
-     <!-- footer   -->
-     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inner-content">
-              <p>Copyright &copy; Dhyan & Jeevan
-            
-            
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
+    
+    
 
     <!-- Bootstrap core JavaScript -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
@@ -122,5 +121,12 @@
 
 
   </body>
-
+  {% block body %} {% endblock %}
+   <!-- footer   -->
+   <footer>
+    <div class="footer"  >
+           <h6 style="text-align:left;"> Copyright &copy; Dhyan & Jeevan</h6>
+           <br>     
+    </div>
+  </footer>
 </html>
