@@ -236,29 +236,31 @@ def seller_index():
 
 @app.route("/s_addprdts", methods=["GET", "POST"])
 def s_addprdts():
-    if(request.method == "POST" and params["crnt_s_usr"]!=""):
-        try:
-            category = request.form.get("category")
-            p_name = request.form.get("p_name")
-            desc = request.form.get("desc")
-            count = request.form.get("count")
-            cost = request.form.get("cost")
-            img = request.form.get("psw")
-            f = request.files["psw"]
-            f.save('C:\\Users\jeev\Downloads\E-Commerce-main (1)\E-Commerce-main\static\\assets\images\\'+f.filename)
-            c_id = db.session.query(Category.C_ID).filter_by(
-                C_NAME=category).first()
-            s_id = db.session.query(Seller.S_ID).filter_by(
-                USERNAME=params['crnt_s_usr']).first()
-            img = str.encode(f.filename)
-            entry = Products(P_NAME=p_name, COST=cost, COUNT=count,
-                             S_ID=s_id[0], C_ID=c_id[0], P_IMG=img, P_DESC=desc)
-            db.session.add(entry)
-            db.session.commit()
-            return redirect("/seller_index")
-        except:
-            return redirect("/s_addprdts")
-    return render_template("s_addprdts.html")
+    if  session['sell_login']:
+        if(request.method == "POST"):
+            try:
+                category = request.form.get("category")
+                p_name = request.form.get("p_name")
+                desc = request.form.get("desc")
+                count = request.form.get("count")
+                cost = request.form.get("cost")
+                img = request.form.get("psw")
+                f = request.files["psw"]
+                f.save('C:\\Users\jeev\Downloads\E-Commerce-main (1)\E-Commerce-main\static\\assets\images\\'+f.filename)
+                c_id = db.session.query(Category.C_ID).filter_by(
+                    C_NAME=category).first()
+                s_id = db.session.query(Seller.S_ID).filter_by(
+                    USERNAME=params['crnt_s_usr']).first()
+                img = str.encode(f.filename)
+                entry = Products(P_NAME=p_name, COST=cost, COUNT=count,
+                                 S_ID=s_id[0], C_ID=c_id[0], P_IMG=img, P_DESC=desc)
+                db.session.add(entry)
+                db.session.commit()
+                return redirect("/seller_index")
+            except:
+                return redirect("/s_addprdts")
+        return render_template("s_addprdts.html")
+    return render_template("seller_index.html")
 
 @app.route("/your_products", methods=["GET" , "POST"])
 def your_products():
@@ -293,6 +295,11 @@ def loggedout():
 @app.route('/logout')
 def logout():
     session['cust_login'] = False
-    return render_template('login.html')
+    return render_template('c_index.html')
+
+@app.route("/s_logout")
+def s_logout():
+    session['sell_login'] = False
+    return render_template("seller_index.html")
 
 app.run(debug=True)

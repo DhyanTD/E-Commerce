@@ -79,10 +79,17 @@
               <a class="nav-link" href="/404" style="color: black;">
               <li class="nav-item"><b>
                Help & Support</b>
+               {% if not session['sell_login'] %}
               </li></a>
               <a class="nav-link" href="/s_login" style="color: black;">
              <li class="nav-item" style="color: black;"><b>
                Login/signup</b>
+             </li></a>
+               {% else %}
+               <a class="nav-link" href="{{ url_for('s_logout') }}" style="color: black;">
+               <li class="nav-item" style="color: black;"><b>Logout</b>
+              </li></a>
+               {% endif %}
              </li></a>
             </ul>
           </div>
