@@ -1,4 +1,6 @@
+from dis import dis
 import re
+from sre_parse import State
 from tkinter import CASCADE
 from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
@@ -8,6 +10,7 @@ import os
 from sqlalchemy import exists
 from sqlalchemy.sql.schema import ForeignKey
 from werkzeug.utils import redirect
+import datetime
 import base64
 
 with open('config.json', 'r') as c:
@@ -120,9 +123,8 @@ class Orders(db.Model):
     STATE = db.Column(db.String, nullable=False)
     DISTRICT = db.Column(db.String, nullable=False)
     CITY = db.Column(db.String, nullable=False)
-    STREET = db.Column(db.String, nullable=False)
     PINCODE = db.Column(db.Integer, nullable=False)
-    DATE = db.Column(db.String, nullable=False)
+    DATE = db.Column(db.String, default=datetime.datetime.utcnow, nullable=False)
 
 # home page
 
@@ -227,13 +229,6 @@ def s_signup():
         except:
             redirect("/s_signup")
     return render_template('s_signup.html')
-
-# payment page
-# @app.route('/payment', methods=["GET","POST"])
-# def payment():
-#     if(request.method=="POST"):
-
-#     return render_template('payment.html')
 
 
 @app.route("/seller_index", methods=["GET", "POST"])
@@ -357,10 +352,24 @@ def cart():
     # except:
         return redirect('/')
 
-@app.route('/payment/<string:pid>')
-def payment(pid):
-    prdcts = db.session.query(Products).filter_by(P_ID=pid)
+@app.route('/payment',methods=["GET" , "POST"])
+def payment():
+    if(request.method==["POST"]):
+        dist = request.form.get('district')
+        state = request.form.get('state')
+        city = request.form.get('city')
+        pincode = request.form.get('zip')
+        cstid = db.session.query(Customer).filter_by(USERNAME=params['crnt_usr']).all()
+        cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=cstid).all()
+        pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cid).all()
+        sid = db.session.query(Products.S_ID).filter_by(P_ID=pid)
+        # prdct = db.session.query(Products).filter_by(P_ID=pid)
+        entry = Orders(CUST_ID=cid,S_ID=sid,P_ID=pid,STATE=state,DISTRICT=dist,CITY=city,PINCODE=pincode)
+        db.session.add(entry)
+        db.session.commit()
+        return redirect('/po')
     return render_template('payment.html')
+
 
 
 app.run(debug=True)

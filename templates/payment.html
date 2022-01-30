@@ -98,12 +98,92 @@
             }
         }
     </style>
+
+<style>
+    .styled-table {
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        border-style: solid;
+        border-color: #000000;
+        margin: auto;
+        width: 60%;
+    }
+
+    .styled-table thead tr {
+        background-color: #00000094;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+        text-align: center;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    /* .container {
+        margin: auto;
+        background-color:#ffffff;
+        padding-left:530px;
+        margin-top: 2%;
+    } */
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #161616;
+    }
+
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #000000;
+    }
+</style>
+
 </head>
 
 <body>
     <div class="row" style="width:57%">
         <div class="col-75">
             <div class="container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sno</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Count</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prdcts in prdcts %}
+                        <tr class="active-row">
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ prdcts.P_NAME }}</td>
+                            <td>{{ prdcts.P_DESC }}</td>
+                            <td>{{ prdcts.COUNT }}</td>
+                            <td>{{ prdcts.COST }}</td>
+                            <td>{{ prdcts.COST }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
                 <form action="/payment" method="POST">
 
                     <div class="row">
