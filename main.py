@@ -370,6 +370,8 @@ def payment():
         return redirect('/po')
     return render_template('payment.html')
 
-
+@app.route('/po')
+def po():
+    return render_template('po.html')
 
 app.run(debug=True)
