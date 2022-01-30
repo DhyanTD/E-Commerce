@@ -346,5 +346,14 @@ def manage():
     except:
         return redirect('/seller_index')
     
+@app.route('/cart')
+def cart():
+    try:
+        custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
+        cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
+        prdcts = db.session.query(Cart_products).filter_by(CART_ID=cid[0][0])
+        return render_template('c_cart.html',prdcts=prdcts)
+    except:
+        return redirect('/')
     
 app.run(debug=True)
