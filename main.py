@@ -1,4 +1,5 @@
 import re
+from tkinter import CASCADE
 from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
@@ -105,7 +106,7 @@ class Product_delivery(db.Model):
 class Cart_products(db.Model):
     CP_ID = db.Column(db.Integer, primary_key=True)
     CART_ID = db.Column(db.Integer, ForeignKey(Cart.CART_ID), nullable=False)
-    P_ID = db.Column(db.Integer, ForeignKey(Products.P_ID), nullable=False)
+    P_ID = db.Column(db.Integer, ForeignKey(Products.P_ID,ondelete=CASCADE,onupdate=CASCADE), nullable=False)
 
 # Table Orders
 
@@ -327,10 +328,23 @@ def add(p_id):
 
 @app.route('/deleteprdct/<string:p_id>')
 def deleteprdct(p_id):
-    prdct = db.session.query(Products).filter_by(P_ID=p_id).all()
-    db.session.delete(prdct)
+    s_id = db.session.query(Seller.S_ID).filter_by(
+                USERNAME=params['crnt_s_usr']).all()
+    prdcts = db.session.query(Products).filter_by(S_ID = s_id[0][0], P_ID = p_id).all()
+    for p in prdcts:
+        db.session.delete(p)
     db.session.commit()
-    return render_template("manage_prdcts.html")
+    return redirect("/manage_prdcts")
+
+@app.route('/manage_prdcts')
+def manage():
+    try:
+        s_id = db.session.query(Seller.S_ID).filter_by(
+                USERNAME=params['crnt_s_usr']).all()
+        prdcts = db.session.query(Products).filter_by(S_ID = s_id[0][0]).all()
+        return render_template('manage_prdcts.html',prdcts=prdcts)
+    except:
+        return redirect('/seller_index')
     
     
 app.run(debug=True)
