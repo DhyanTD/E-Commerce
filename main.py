@@ -131,6 +131,11 @@ def home():
     prdts = db.session.query(Products.P_ID, Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
     return render_template('c_index.html',products=prdts)
 
+# Help & Support
+@app.route("/hc")
+def hc():
+    return render_template('hc.html')
+
 # customer login page
 
 
