@@ -128,7 +128,7 @@ class Orders(db.Model):
 
 @app.route("/")
 def home():
-    prdts = db.session.query(Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
+    prdts = db.session.query(Products.P_ID, Products.P_NAME,Products.COUNT,Products.COST,Products.P_IMG,Products.P_DESC).all()
     return render_template('c_index.html',products=prdts)
 
 # customer login page
@@ -144,6 +144,7 @@ def login():
         if(exists):
             params["crnt_usr"] = uname
             session['cust_login'] = True
+            print(params['crnt_usr'])
             return redirect('/')
         else:
             return redirect('/signup')
@@ -292,6 +293,10 @@ def not_found():
 def loggedout():
     return render_template("s_logged_out.html")
 
+@app.route("/c_logged_out")
+def c_loggedout():
+    return render_template("c_logged_out.html")
+
 @app.route('/logout')
 def logout():
     session['cust_login'] = False
@@ -301,5 +306,17 @@ def logout():
 def s_logout():
     session['sell_login'] = False
     return render_template("seller_index.html")
+
+@app.route('/add/<int:p_id>')
+def add(p_id):
+    try:
+        cust = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
+        cart = db.session.query(Cart.CART_ID).filter_by(CUST_ID=cust[0][0])
+        entry = Cart_products(CART_ID=cart,P_ID=p_id)
+        db.session.add(entry)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return redirect('/c_logged_out')
 
 app.run(debug=True)
