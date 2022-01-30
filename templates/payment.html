@@ -160,30 +160,6 @@
     <div class="row" style="width:57%">
         <div class="col-75">
             <div class="container">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Sno</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Count</th>
-                            <th scope="col">Cost</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for prdcts in prdcts %}
-                        <tr class="active-row">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ prdcts.P_NAME }}</td>
-                            <td>{{ prdcts.P_DESC }}</td>
-                            <td>{{ prdcts.COUNT }}</td>
-                            <td>{{ prdcts.COST }}</td>
-                            <td>{{ prdcts.COST }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
                 <form action="/payment" method="POST">
 
                     <div class="row">
@@ -197,7 +173,6 @@
                             <input type="text" id="state" name="state" placeholder="state">
                             <label for="pincode">Pincode</label>
                             <input type="number" id="pincode" name="zip" placeholder="pincode">
-
                         </div>
 
 

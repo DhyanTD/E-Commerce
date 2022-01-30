@@ -353,11 +353,6 @@ def cart():
 
 @app.route('/payment',methods=["GET" , "POST"])
 def payment():
-    cust = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
-    cart = db.session.query(Cart.CART_ID).filter_by(CUST_ID=cust[0][0])
-    pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cart[0][0]).all()
-    sid = db.session.query(Products.S_ID).filter_by(P_ID=pid)
-    prdct = db.session.query(Products).filter_by(P_ID=pid)
     if(request.method == "POST"):
         dist = request.form.get('district')
         state = request.form.get('state')
@@ -367,13 +362,13 @@ def payment():
         cart = db.session.query(Cart.CART_ID).filter_by(CUST_ID=cust[0][0])
         pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cart[0][0]).all()
         sid = db.session.query(Products.S_ID).filter_by(P_ID=pid[0][0])
-        prdct = db.session.query(Products).filter_by(P_ID=pid[0][0])
+        # prdct = db.session.query(Products).filter_by(P_ID=pid[0][0])
         entry = Orders(CUST_ID=cust[0][0],S_ID=sid[0][0],P_ID=pid[0][0],STATE=state,DISTRICT=dist,CITY=city,PIN_CODE=pincode)
         db.session.add(entry)
         db.session.commit()
-        # return redirect('/c_po')
+        return redirect('/c_po')
         # return render_template('payment.html',prdcts=prdct)
-    return render_template('payment.html',prdcts=prdct)
+    return render_template('payment.html')
 
 @app.route('/c_po')
 def po():
