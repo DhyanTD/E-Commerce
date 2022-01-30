@@ -324,4 +324,13 @@ def add(p_id):
     except:
         return redirect('/c_logged_out')
 
+
+@app.route('/deleteprdct/<string:p_id>')
+def deleteprdct(p_id):
+    prdct = db.session.query(Products).filter_by(P_ID=p_id).all()
+    db.session.delete(prdct)
+    db.session.commit()
+    return render_template("manage_prdcts.html")
+    
+    
 app.run(debug=True)
