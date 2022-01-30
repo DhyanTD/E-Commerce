@@ -253,7 +253,7 @@ def s_addprdts():
                 cost = request.form.get("cost")
                 img = request.form.get("psw")
                 f = request.files["psw"]
-                f.save('C:\\Users\jeev\Downloads\E-Commerce-main (1)\E-Commerce-main\static\\assets\images\\'+f.filename)
+                f.save('C:\\Users\\jeev\\OneDrive\\Documents\\GitHub\\E-Commerce\\static\\assets\\images\\'+f.filename)
                 c_id = db.session.query(Category.C_ID).filter_by(
                     C_NAME=category).first()
                 s_id = db.session.query(Seller.S_ID).filter_by(
