@@ -366,12 +366,25 @@ def payment():
         entry = Orders(CUST_ID=cust[0][0],S_ID=sid[0][0],P_ID=pid[0][0],STATE=state,DISTRICT=dist,CITY=city,PIN_CODE=pincode)
         db.session.add(entry)
         db.session.commit()
+        custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
+        cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
+        prdcts = db.session.query(Cart_products).filter_by(CART_ID=cid[0][0])
+        for p in prdcts:
+            db.session.delete(p)
+        db.session.commit()
         return redirect('/c_po')
         # return render_template('payment.html',prdcts=prdct)
     return render_template('payment.html')
 
 @app.route('/c_po')
 def po():
+    custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
+    cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
+    pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cid[0][0])
+    prdcts = db.session.query(Products).filter_by(P_ID=pid).all()
+    for p in prdcts:
+        p.COUNT-=10
+    db.session.commit()
     return render_template('c_po.html')
 
 app.run(debug=True)
