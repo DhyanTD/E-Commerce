@@ -346,6 +346,9 @@ def cart():
         custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
         cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
         pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cid[0][0])
+        # print(cid[0][0])
+        # res = db.engine.execute('SELECT * FROM products WHERE products.P_ID in (SELECT cart_products.P_ID FROM cart_products WHERE cart_products.CART_ID = cid[0][0]')
+        # print(res)
         prdcts = db.session.query(Products).filter_by(P_ID=pid).all()
         return render_template('c_cart.html',prdcts=prdcts)
     except:
