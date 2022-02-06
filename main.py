@@ -259,7 +259,7 @@ def s_addprdts():
                 db.session.commit()
                 return redirect("/seller_index")
             except:
-                return redirect("/s_addprdts")
+                return redirect("/s_logged_out")
         return render_template("s_addprdts.html")
     return render_template("seller_index.html")
 
@@ -338,7 +338,7 @@ def manage():
         prdcts = db.session.query(Products).filter_by(S_ID = s_id[0][0]).all()
         return render_template('manage_prdcts.html',prdcts=prdcts)
     except:
-        return redirect('/seller_index')
+        return redirect('/s_logged_out')
     
 @app.route('/cart')
 def cart():
