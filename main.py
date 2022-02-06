@@ -345,11 +345,18 @@ def cart():
     # try:
         custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
         cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
-        pid = db.session.query(Cart_products.P_ID).filter_by(CART_ID=cid[0][0])
+        pid = []
+        for p in db.session.query(Cart_products.P_ID).filter_by(CART_ID=cid[0][0]):
+            print(p)
+            pid.append(p[0])
+        print(pid)
         # print(cid[0][0])
-        c = cid[0][0]
-        res = db.engine.execute(f'SELECT * FROM products WHERE products.P_ID in (SELECT cart_products.P_ID FROM cart_products WHERE cart_products.CART_ID = %s'%(cid[0][0]))
-        prdcts = db.session.query(Products).filter_by(P_ID=pid).all()
+        # c = cid[0][0]
+        prdcts = []
+        # res = db.engine.execute(f"SELECT * FROM `Products` WHERE `Products`.`P_ID` IN (SELECT `Cart_products`.`P_ID` FROM `Cart_products` WHERE `Cart_products`.`CART_ID`={cid[0][0]}")
+        for p in pid:
+            prdcts.append(db.session.query(Products).filter_by(P_ID=p).all())
+        print(prdcts)
         return render_template('c_cart.html',prdcts=prdcts)
     # except:
         return redirect('/c_logged_out')
