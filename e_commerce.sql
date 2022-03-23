@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2022 at 11:07 AM
+-- Generation Time: Mar 23, 2022 at 11:38 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -124,6 +124,14 @@ CREATE TABLE `orders` (
   `DATE` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `count` AFTER INSERT ON `orders` FOR EACH ROW UPDATE products SET COUNT = COUNT-1
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -148,8 +156,7 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`P_ID`, `P_NAME`, `COST`, `COUNT`, `S_ID`, `C_ID`, `P_IMG`, `P_DESC`) VALUES
 (18, 'Asus Laptop', 454544534, 5, 101, 1, 'psw', 'adsfsfdgsfgsfdg'),
 (19, 'REDMI', 4254524, 52, 101, 1, '2020-10-20 (12).png', 'iuhipu9'),
-(20, 'REDMI', 4534534534, 5, 101, 1, '2020-10-20 (22).png', 'Note 9 Pro Max'),
-(22, 'REDMI', 6486453678, 65, 101, 1, '2020-10-20 (21).png', 'Note 9 Pro Max');
+(20, 'REDMI', 4534534534, 5, 101, 1, '2020-10-20 (22).png', 'Note 9 Pro Max');
 
 -- --------------------------------------------------------
 

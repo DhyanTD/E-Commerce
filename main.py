@@ -342,7 +342,7 @@ def manage():
     
 @app.route('/cart')
 def cart():
-    # try:
+    try:
         custid = db.session.query(Customer.CUST_ID).filter_by(USERNAME=params['crnt_usr']).all()
         cid = db.session.query(Cart.CART_ID).filter_by(CUST_ID=custid[0][0]).all()
         pid = []
@@ -358,7 +358,7 @@ def cart():
             prdcts.append(db.session.query(Products).filter_by(P_ID=p).all())
         print(prdcts)
         return render_template('c_cart.html',prdcts=prdcts)
-    # except:
+    except:
         return redirect('/c_logged_out')
 
 @app.route('/payment',methods=["GET" , "POST"])
