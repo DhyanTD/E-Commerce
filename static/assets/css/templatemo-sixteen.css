@@ -341,6 +341,22 @@ header .navbar {
 	background-position: center center;
 }
 
+.banner-item-04 {
+	padding: 300px 0px;
+	background-image: url(../images/slide_04.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.banner-item-05 {
+	padding: 300px 0px;
+	background-image: url(../images/slide_05.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
 .banner .banner-item {
 	max-height: 600px;
 }

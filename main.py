@@ -234,6 +234,10 @@ def s_signup():
 def seller_index():
     return render_template("seller_index.html")
 
+@app.route("/readmore")
+def readmore():
+    return render_template('readmore.html')
+
 
 @app.route("/s_addprdts", methods=["GET", "POST"])
 def s_addprdts():
