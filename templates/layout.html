@@ -9,7 +9,7 @@
     <meta name="author" content="">
     
 
-    <title>Uppad Strores</title>
+    <title>Your Strores</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -27,13 +27,13 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- ***** Preloader Start ***** -->
-    <!-- <div id="preloader">
+    <div id="preloader">
         <div class="jumper">
             <div></div>
             <div></div>
             <div></div>
         </div>
-    </div>   -->
+    </div>  
     <!-- ***** Preloader End ***** -->
 <style>
   .conty {
@@ -73,7 +73,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="/" style="color: black;" style="background-color: #bbb;"><b>Home</b>
+                <a class="nav-link" href="/seller_index" style="color: black;" style="background-color: #bbb;"><b>Home</b>
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
@@ -92,6 +92,7 @@
                <li class="nav-item" style="color: black;"><b>Logout</b>
               </li></a>
                {% endif %}
+             </li></a>
             </ul>
           </div>
         </div>

@@ -328,7 +328,9 @@ def add(p_id):
 def deleteprdct(p_id):
     s_id = db.session.query(Seller.S_ID).filter_by(
                 USERNAME=params['crnt_s_usr']).all()
-    prdcts = db.session.query(Products).filter_by(S_ID = s_id[0][0], P_ID = p_id[0]).all()
+    prdcts = db.session.query(Products).filter_by(P_ID = p_id).all()
+    print(p_id)
+    print(prdcts)
     for p in prdcts:
         db.session.delete(p)
     db.session.commit()
